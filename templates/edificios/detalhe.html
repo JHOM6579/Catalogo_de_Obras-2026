@@ -1,0 +1,198 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ edificio.nome }}{% endblock %}
+
+{% block content %}
+
+<section class="detail-page">
+    <div class="container">
+
+        <a href="{% url 'lista_edificios' %}" class="back-link">
+            ← Voltar
+        </a>
+
+        <h1 class="detail-title">
+            {{ edificio.nome }}
+        </h1>
+
+        <div class="row g-4">
+
+            <div class="col-12 col-lg-7">
+                <div class="gallery-stack">
+                    {% for foto in fotos %}
+                        <img 
+                            src="{{ foto.imagem.url }}" 
+                            alt="{{ edificio.nome }}" 
+                            class="detail-photo"
+                        >
+                    {% empty %}
+                        <div class="detail-photo-placeholder">
+                            Sem fotos cadastradas
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+
+            <div class="col-12 col-lg-5">
+
+                <div class="info-card">
+                    <h2>Informações Gerais</h2>
+
+                    <div class="info-item">
+                        <span class="info-label">Localização</span>
+                        <strong>{{ edificio.localizacao_textual }}</strong>
+                    </div>
+
+                    {% if edificio.cidade or edificio.bairro or edificio.estado %}
+                        <div class="info-item">
+                            <span class="info-label">Cidade / Bairro</span>
+                            <strong>
+                                {% if edificio.bairro %}{{ edificio.bairro }}{% endif %}
+                                {% if edificio.cidade %} - {{ edificio.cidade }}{% endif %}
+                                {% if edificio.estado %}, {{ edificio.estado }}{% endif %}
+                            </strong>
+                        </div>
+                    {% endif %}
+
+                    {% if edificio.area_construida %}
+                        <div class="info-item">
+                            <span class="info-label">Área Construída</span>
+                            <strong>{{ edificio.area_construida }} m²</strong>
+                        </div>
+                    {% endif %}
+
+                    {% if edificio.area_terreno %}
+                        <div class="info-item">
+                            <span class="info-label">Área do Terreno</span>
+                            <strong>{{ edificio.area_terreno }} m²</strong>
+                        </div>
+                    {% endif %}
+
+                    {% if edificio.ano_construcao %}
+                        <div class="info-item">
+                            <span class="info-label">Ano de Construção</span>
+                            <strong>{{ edificio.ano_construcao }}</strong>
+                        </div>
+                    {% endif %}
+
+                    {% if edificio.tipo_uso %}
+                        <div class="info-item">
+                            <span class="info-label">Tipo de Uso</span>
+                            <strong>{{ edificio.get_tipo_uso_display }}</strong>
+                        </div>
+                    {% endif %}
+
+                    {% if edificio.status %}
+                        <div class="info-item">
+                            <span class="info-label">Status</span>
+                            <strong>{{ edificio.get_status_display }}</strong>
+                        </div>
+                    {% endif %}
+                </div>
+
+                <div class="info-card">
+                    <h2>Ficha Técnica</h2>
+
+                    {% if edificio.estrutura %}
+                        <div class="info-item">
+                            <span class="info-label">Estrutura</span>
+                            <strong>{{ edificio.estrutura }}</strong>
+                        </div>
+                    {% endif %}
+
+                    {% if edificio.sistema_construtivo %}
+                        <div class="info-item">
+                            <span class="info-label">Sistema Construtivo</span>
+                            <strong>{{ edificio.sistema_construtivo }}</strong>
+                        </div>
+                    {% endif %}
+
+                    {% if edificio.numero_pavimentos %}
+                        <div class="info-item">
+                            <span class="info-label">Pavimentos</span>
+                            <strong>{{ edificio.numero_pavimentos }}</strong>
+                        </div>
+                    {% endif %}
+
+                    {% if edificio.numero_unidades %}
+                        <div class="info-item">
+                            <span class="info-label">Unidades</span>
+                            <strong>{{ edificio.numero_unidades }}</strong>
+                        </div>
+                    {% endif %}
+
+                    {% if edificio.vagas_estacionamento %}
+                        <div class="info-item">
+                            <span class="info-label">Estacionamento</span>
+                            <strong>{{ edificio.vagas_estacionamento }} vagas</strong>
+                        </div>
+                    {% endif %}
+
+                    {% if edificio.arquiteto %}
+                        <hr>
+                        <div class="info-item">
+                            <span class="info-label">Arquiteto</span>
+                            <strong>{{ edificio.arquiteto }}</strong>
+                        </div>
+                    {% endif %}
+
+                    {% if edificio.cliente %}
+                        <div class="info-item">
+                            <span class="info-label">Cliente</span>
+                            <strong>{{ edificio.cliente }}</strong>
+                        </div>
+                    {% endif %}
+
+                    {% if edificio.responsaveis_tecnicos %}
+                        <div class="info-item">
+                            <span class="info-label">Responsáveis Técnicos</span>
+                            <strong>{{ edificio.responsaveis_tecnicos }}</strong>
+                        </div>
+                    {% endif %}
+                </div>
+
+                {% if edificio.descricao_curta %}
+                    <div class="info-card">
+                        <h2>Descrição</h2>
+                        <p class="mb-0">
+                            {{ edificio.descricao_curta }}
+                        </p>
+                    </div>
+                {% endif %}
+
+                {% if edificio.diferenciais %}
+                    <div class="info-card">
+                        <h2>Diferenciais</h2>
+                        <p class="mb-0">
+                            {{ edificio.diferenciais }}
+                        </p>
+                    </div>
+                {% endif %}
+
+            </div>
+        </div>
+
+        <section class="map-card">
+            <h2>Localização no Mapa</h2>
+
+            {% if edificio.latitude and edificio.longitude %}
+                <iframe
+                    class="map-frame"
+                    loading="lazy"
+                    allowfullscreen
+                    src="https://www.google.com/maps?q={{ edificio.latitude }},{{ edificio.longitude }}&output=embed">
+                </iframe>
+            {% else %}
+                <iframe
+                    class="map-frame"
+                    loading="lazy"
+                    allowfullscreen
+                    src="https://www.google.com/maps?q={{ edificio.localizacao_textual|urlencode }}&output=embed">
+                </iframe>
+            {% endif %}
+        </section>
+
+    </div>
+</section>
+
+{% endblock %}

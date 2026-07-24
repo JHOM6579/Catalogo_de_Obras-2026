@@ -1,0 +1,122 @@
+.site-header {
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    background: rgba(255, 255, 255, 0.96);
+    border-bottom: 1px solid var(--color-border);
+    backdrop-filter: blur(10px);
+}
+
+.site-header-inner {
+    min-height: 72px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+}
+
+.site-brand {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    color: var(--color-text);
+    font-size: 20px;
+    font-weight: 700;
+    text-decoration: none;
+}
+
+.site-brand:hover {
+    color: var(--color-primary);
+}
+
+.site-brand-icon {
+    width: 42px;
+    height: 42px;
+    display: grid;
+    place-items: center;
+    border-radius: 12px;
+    background: #eef2ff;
+    font-size: 22px;
+}
+
+.site-brand-text {
+    white-space: nowrap;
+}
+
+.site-header-actions {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.user-menu-button {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    border: 0;
+    background: transparent;
+    padding: 6px 8px;
+    border-radius: 10px;
+    color: var(--color-text);
+}
+
+.user-menu-button:hover {
+    background: #f1f5f9;
+}
+
+.user-avatar {
+    width: 36px;
+    height: 36px;
+    display: grid;
+    place-items: center;
+    border-radius: 50%;
+    background: var(--color-primary);
+    color: #ffffff;
+    font-size: 15px;
+    font-weight: 700;
+}
+
+.user-menu-text {
+    font-size: 14px;
+    color: var(--color-muted);
+}
+
+.user-menu-text strong {
+    color: var(--color-text);
+}
+
+.user-dropdown {
+    width: 240px;
+    padding: 8px;
+    border: 1px solid var(--color-border);
+    border-radius: 12px;
+    box-shadow: var(--shadow-md);
+}
+
+.user-dropdown-header {
+    display: flex;
+    flex-direction: column;
+    padding: 10px 12px;
+}
+
+.user-dropdown-name {
+    color: var(--color-text);
+    font-size: 14px;
+    font-weight: 700;
+}
+
+.user-dropdown-email {
+    color: var(--color-muted);
+    font-size: 12px;
+    overflow-wrap: anywhere;
+}
+
+.user-dropdown .dropdown-item {
+    border-radius: 8px;
+    padding: 9px 12px;
+    font-size: 14px;
+}
+
+.user-dropdown form {
+    margin: 0;
+}

@@ -1,0 +1,91 @@
+{% extends 'base.html' %}
+
+{% block title %}Portfólio de Edifícios{% endblock %}
+
+{% block content %}
+
+<section class="catalog-header">
+    <div class="container-fluid px-4">
+        <h1 class="page-title">
+            Fichas Técnicas - Portfólio de Edifícios
+        </h1>
+
+        <form method="get" class="search-form">
+            <input
+                type="text"
+                name="busca"
+                value="{{ busca }}"
+                class="form-control search-input"
+                placeholder="Buscar por nome ou localização..."
+            >
+
+            <button class="btn btn-primary">
+                Buscar
+            </button>
+        </form>
+    </div>
+</section>
+
+<section class="catalog-content">
+    <div class="container-fluid px-4">
+
+        <p class="result-count">
+            {{ edificios|length }} edifício(s) encontrado(s)
+        </p>
+
+        <div class="row g-4">
+            {% for edificio in edificios %}
+                <div class="col-12 col-md-6 col-xl-4">
+                    <a href="{% url 'detalhe_edificio' edificio.slug %}" class="building-card-link">
+                        <article class="building-card">
+
+                            <div class="building-card-images">
+                                {% for foto in edificio.fotos_card %}
+                                    {% if forloop.first %}
+                                        <img src="{{ foto.imagem.url }}" class="main-card-image" alt="{{ edificio.nome }}">
+                                    {% else %}
+                                        <img src="{{ foto.imagem.url }}" class="small-card-image" alt="{{ edificio.nome }}">
+                                    {% endif %}
+                                {% empty %}
+                                    <div class="image-placeholder">
+                                        Sem imagem
+                                    </div>
+                                {% endfor %}
+                            </div>
+
+                            <div class="building-card-body">
+                                <h2 class="building-card-title">
+                                    {{ edificio.nome }}
+                                </h2>
+
+                                <p class="building-location">
+                                    {{ edificio.localizacao_textual }}
+                                </p>
+
+                                <div class="building-meta">
+                                    {% if edificio.area_construida %}
+                                        <span>{{ edificio.area_construida }} m²</span>
+                                    {% endif %}
+
+                                    {% if edificio.ano_construcao %}
+                                        <span>{{ edificio.ano_construcao }}</span>
+                                    {% endif %}
+                                </div>
+                            </div>
+
+                        </article>
+                    </a>
+                </div>
+            {% empty %}
+                <div class="col-12">
+                    <div class="alert alert-light border">
+                        Nenhum edifício encontrado.
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+
+    </div>
+</section>
+
+{% endblock %}

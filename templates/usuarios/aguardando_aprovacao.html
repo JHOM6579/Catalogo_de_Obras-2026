@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+
+{% block title %}Aguardando aprovação{% endblock %}
+
+{% block content %}
+
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-12 col-md-6">
+            <div class="info-card text-center">
+                <h1 class="h4 mb-3">
+                    Cadastro aguardando aprovação
+                </h1>
+
+                <p>
+                    Seu cadastro foi recebido, mas ainda precisa ser aprovado por um administrador.
+                </p>
+
+                <a href="{% url 'lista_edificios' %}" class="btn btn-primary">
+                    Voltar para o catálogo
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

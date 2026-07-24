@@ -1,0 +1,48 @@
+@media (max-width: 768px) {
+    .site-header-inner {
+        min-height: 64px;
+    }
+
+    .site-brand {
+        font-size: 17px;
+    }
+
+    .site-brand-icon {
+        width: 36px;
+        height: 36px;
+    }
+
+    .logged-user {
+        display: none;
+    }
+}
+
+@media (max-width: 480px) {
+    .site-header-actions {
+        gap: 8px;
+    }
+
+    .site-header-actions .btn {
+        padding-left: 10px;
+        padding-right: 10px;
+    }
+}
+
+@media (max-width: 576px) {
+    .site-header .container-fluid {
+        padding-left: 14px !important;
+        padding-right: 14px !important;
+    }
+
+    .site-brand-text {
+        font-size: 16px;
+    }
+
+    .user-menu-text {
+        display: none;
+    }
+
+    .site-header-actions .btn {
+        font-size: 12px;
+    }
+}
