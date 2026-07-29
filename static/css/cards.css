@@ -1,0 +1,140 @@
+.building-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 24px;
+}
+
+.building-card-link {
+    min-width: 0;
+    color: inherit;
+    text-decoration: none;
+}
+
+.building-card {
+    height: 100%;
+    overflow: hidden;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    background: var(--color-surface);
+    box-shadow: var(--shadow-sm);
+    transition:
+        transform 0.22s ease,
+        box-shadow 0.22s ease,
+        border-color 0.22s ease;
+}
+
+.building-card:hover {
+    border-color: rgba(79, 70, 229, 0.35);
+    box-shadow: var(--shadow-md);
+    transform: translateY(-5px);
+}
+
+.building-card-images {
+    height: 230px;
+    display: grid;
+    gap: 3px;
+    overflow: hidden;
+    background: #e2e8f0;
+}
+
+.building-card-photo {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.35s ease;
+}
+
+.building-card:hover .building-card-photo {
+    transform: scale(1.03);
+}
+
+/* Uma foto */
+
+.photo-count-1 {
+    grid-template-columns: 1fr;
+}
+
+/* Duas fotos */
+
+.photo-count-2 {
+    grid-template-columns: 2fr 1fr;
+}
+
+/* Três fotos */
+
+.photo-count-3 {
+    grid-template-columns: 2fr 1fr;
+    grid-template-rows: 1fr 1fr;
+}
+
+.photo-count-3 .photo-1 {
+    grid-row: 1 / 3;
+}
+
+.building-card-placeholder {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    color: var(--color-muted);
+}
+
+.building-card-placeholder span {
+    font-size: 38px;
+}
+
+.building-card-content {
+    padding: 20px;
+}
+
+.building-card-content h2 {
+    margin: 0 0 10px;
+    color: var(--color-text);
+    font-size: 19px;
+    font-weight: 750;
+}
+
+.building-card-location {
+    min-height: 42px;
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+    margin: 0 0 16px;
+    color: var(--color-muted);
+    font-size: 14px;
+    line-height: 1.5;
+}
+
+.building-card-location span {
+    flex: 0 0 auto;
+    color: var(--color-primary);
+}
+
+.building-card-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px;
+    padding-top: 15px;
+    border-top: 1px solid var(--color-border);
+    color: #475569;
+    font-size: 14px;
+}
+
+.building-card-meta span {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.building-card-meta strong {
+    color: var(--color-primary);
+}
+
+.building-card-action {
+    display: inline-block;
+    margin-top: 16px;
+    color: var(--color-primary);
+    font-size: 14px;
+    font-weight: 700;
+}

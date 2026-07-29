@@ -171,20 +171,3 @@
         height: 320px;
     }
 }
-
-.detail-page {
-    border: 8px solid red !important;
-}
-
-.map-card {
-    border: 8px solid red !important;
-}
-
-.info-card {
-    border: 8px solid blue !important;
-}
-
-.map-frame {
-    width: 100% !important;
-    height: 500px !important;
-}

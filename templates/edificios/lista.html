@@ -4,83 +4,127 @@
 
 {% block content %}
 
-<section class="catalog-header">
-    <div class="container-fluid px-4">
-        <h1 class="page-title">
-            Fichas Técnicas - Portfólio de Edifícios
-        </h1>
+<section class="home-hero">
+    <div class="container home-container">
+        <div class="home-heading">
+            <div>
+                <span class="home-eyebrow">Portfólio</span>
 
-        <form method="get" class="search-form">
-            <input
-                type="text"
-                name="busca"
-                value="{{ busca }}"
-                class="form-control search-input"
-                placeholder="Buscar por nome ou localização..."
-            >
+                <h1>Fichas Técnicas de Edifícios</h1>
 
-            <button class="btn btn-primary">
+                <p>
+                    Consulte os empreendimentos cadastrados e suas informações principais.
+                </p>
+            </div>
+        </div>
+
+        <form method="get" class="catalog-search">
+            <div class="catalog-search-field">
+                <span class="catalog-search-icon">⌕</span>
+
+                <input
+                    type="search"
+                    name="busca"
+                    value="{{ busca }}"
+                    placeholder="Buscar por nome ou localização..."
+                    aria-label="Buscar edifícios"
+                >
+            </div>
+
+            <button type="submit" class="catalog-search-button">
                 Buscar
             </button>
+
+            {% if busca %}
+                <a href="{% url 'lista_edificios' %}" class="catalog-clear-button">
+                    Limpar
+                </a>
+            {% endif %}
         </form>
     </div>
 </section>
 
-<section class="catalog-content">
-    <div class="container-fluid px-4">
+<section class="catalog-section">
+    <div class="container home-container">
 
-        <p class="result-count">
-            {{ edificios|length }} edifício(s) encontrado(s)
-        </p>
+        <div class="catalog-toolbar">
+            <p>
+                <strong>{{ edificios|length }}</strong>
+                empreendimento{{ edificios|length|pluralize }} encontrado{{ edificios|length|pluralize }}
+            </p>
+        </div>
 
-        <div class="row g-4">
+        <div class="building-grid">
             {% for edificio in edificios %}
-                <div class="col-12 col-md-6 col-xl-4">
-                    <a href="{% url 'detalhe_edificio' edificio.slug %}" class="building-card-link">
-                        <article class="building-card">
+                <a
+                    href="{% url 'detalhe_edificio' edificio.slug %}"
+                    class="building-card-link"
+                >
+                    <article class="building-card">
 
-                            <div class="building-card-images">
-                                {% for foto in edificio.fotos_card %}
-                                    {% if forloop.first %}
-                                        <img src="{{ foto.imagem.url }}" class="main-card-image" alt="{{ edificio.nome }}">
-                                    {% else %}
-                                        <img src="{{ foto.imagem.url }}" class="small-card-image" alt="{{ edificio.nome }}">
-                                    {% endif %}
+                        {% with fotos=edificio.fotos_card %}
+                            <div class="building-card-images photo-count-{{ fotos|length }}">
+
+                                {% for foto in fotos %}
+                                    <img
+                                        src="{{ foto.imagem.url }}"
+                                        alt="{{ foto.legenda|default:edificio.nome }}"
+                                        class="building-card-photo photo-{{ forloop.counter }}"
+                                    >
                                 {% empty %}
-                                    <div class="image-placeholder">
-                                        Sem imagem
+                                    <div class="building-card-placeholder">
+                                        <span>▧</span>
+                                        <small>Sem imagem</small>
                                     </div>
                                 {% endfor %}
+
+                            </div>
+                        {% endwith %}
+
+                        <div class="building-card-content">
+                            <h2>{{ edificio.nome }}</h2>
+
+                            <p class="building-card-location">
+                                <span>⌖</span>
+                                {{ edificio.localizacao_textual }}
+                            </p>
+
+                            <div class="building-card-meta">
+                                {% if edificio.area_construida %}
+                                    <span>
+                                        <strong>↗</strong>
+                                        {{ edificio.area_construida }} m²
+                                    </span>
+                                {% endif %}
+
+                                {% if edificio.ano_construcao %}
+                                    <span>
+                                        <strong>▣</strong>
+                                        {{ edificio.ano_construcao }}
+                                    </span>
+                                {% endif %}
                             </div>
 
-                            <div class="building-card-body">
-                                <h2 class="building-card-title">
-                                    {{ edificio.nome }}
-                                </h2>
+                            <span class="building-card-action">
+                                Ver detalhes →
+                            </span>
+                        </div>
 
-                                <p class="building-location">
-                                    {{ edificio.localizacao_textual }}
-                                </p>
-
-                                <div class="building-meta">
-                                    {% if edificio.area_construida %}
-                                        <span>{{ edificio.area_construida }} m²</span>
-                                    {% endif %}
-
-                                    {% if edificio.ano_construcao %}
-                                        <span>{{ edificio.ano_construcao }}</span>
-                                    {% endif %}
-                                </div>
-                            </div>
-
-                        </article>
-                    </a>
-                </div>
+                    </article>
+                </a>
             {% empty %}
-                <div class="col-12">
-                    <div class="alert alert-light border">
-                        Nenhum edifício encontrado.
-                    </div>
+                <div class="catalog-empty">
+                    <span class="catalog-empty-icon">⌕</span>
+
+                    <h2>Nenhum edifício encontrado</h2>
+
+                    <p>
+                        Tente pesquisar por outro nome ou localização.
+                    </p>
+
+                    <a href="{% url 'lista_edificios' %}" class="btn btn-primary">
+                        Limpar pesquisa
+                    </a>
                 </div>
             {% endfor %}
         </div>
