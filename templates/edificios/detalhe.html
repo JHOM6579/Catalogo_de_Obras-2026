@@ -150,26 +150,26 @@
                         </div>
                     {% endif %}
                 </div>
-
-                {% if edificio.descricao_curta %}
-                    <div class="info-card">
-                        <h2>Descrição</h2>
-                        <p class="mb-0">
-                            {{ edificio.descricao_curta }}
-                        </p>
-                    </div>
-                {% endif %}
-
-                {% if edificio.diferenciais %}
-                    <div class="info-card">
-                        <h2>Diferenciais</h2>
-                        <p class="mb-0">
-                            {{ edificio.diferenciais }}
-                        </p>
-                    </div>
-                {% endif %}
-
+        
             </div>
+        </div>
+
+        <div class="detail-extra-grid">
+
+            {% if edificio.descricao_curta %}
+                <div class="info-card">
+                    <h2>Descrição</h2>
+                    <p>{{ edificio.descricao_curta }}</p>
+                </div>
+            {% endif %}
+
+            {% if edificio.diferenciais %}
+                <div class="info-card">
+                    <h2>Diferenciais</h2>
+                    <p>{{ edificio.diferenciais }}</p>
+                </div>
+            {% endif %}
+
         </div>
 
         <section class="map-card">

@@ -171,3 +171,20 @@
         height: 320px;
     }
 }
+
+.detail-extra-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 22px;
+    margin-top: 28px;
+}
+
+.detail-extra-grid .info-card {
+    margin-bottom: 0;
+}
+
+@media (max-width: 768px) {
+    .detail-extra-grid {
+        grid-template-columns: 1fr;
+    }
+}
