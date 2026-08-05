@@ -17,21 +17,74 @@
 
         <div class="row g-4">
 
-            <div class="col-12 col-lg-7">
-                <div class="gallery-stack">
+           <div class="col-12 col-lg-7">
+    {% if fotos %}
+        <div class="detail-gallery" data-gallery>
+
+            <div class="detail-gallery-main">
+                {% for foto in fotos %}
+                    <img
+                        src="{{ foto.imagem.url }}"
+                        alt="{{ foto.legenda|default:edificio.nome }}"
+                        class="detail-gallery-image{% if forloop.first %} is-active{% endif %}"
+                        data-gallery-image
+                        data-index="{{ forloop.counter0 }}"
+                    >
+                {% endfor %}
+
+                {% if fotos|length > 1 %}
+                    <button
+                        type="button"
+                        class="gallery-control gallery-control-prev"
+                        data-gallery-prev
+                        aria-label="Imagem anterior"
+                    >
+                        ‹
+                    </button>
+
+                    <button
+                        type="button"
+                        class="gallery-control gallery-control-next"
+                        data-gallery-next
+                        aria-label="Próxima imagem"
+                    >
+                        ›
+                    </button>
+
+                    <div class="gallery-counter">
+                        <span data-gallery-current>1</span>
+                        /
+                        <span>{{ fotos|length }}</span>
+                    </div>
+                {% endif %}
+            </div>
+
+            {% if fotos|length > 1 %}
+                <div class="detail-gallery-thumbnails">
                     {% for foto in fotos %}
-                        <img 
-                            src="{{ foto.imagem.url }}" 
-                            alt="{{ edificio.nome }}" 
-                            class="detail-photo"
+                        <button
+                            type="button"
+                            class="gallery-thumbnail{% if forloop.first %} is-active{% endif %}"
+                            data-gallery-thumbnail
+                            data-index="{{ forloop.counter0 }}"
+                            aria-label="Mostrar imagem {{ forloop.counter }}"
                         >
-                    {% empty %}
-                        <div class="detail-photo-placeholder">
-                            Sem fotos cadastradas
-                        </div>
+                            <img
+                                src="{{ foto.imagem.url }}"
+                                alt="{{ foto.legenda|default:edificio.nome }}"
+                            >
+                        </button>
                     {% endfor %}
                 </div>
-            </div>
+            {% endif %}
+
+        </div>
+    {% else %}
+        <div class="detail-photo-placeholder">
+            Sem fotos cadastradas
+        </div>
+    {% endif %}
+</div>
 
             <div class="col-12 col-lg-5">
 
